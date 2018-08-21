@@ -1,0 +1,53 @@
+/* HINE SCROLLBARS */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+/* DISABLE SELECTING TEXT */
+body{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /*Chrome and Opera*/
+}
+
+/* DISABLE DRAGGING IMAGES */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* PRELOADER */
+body {
+	opacity: 0;
+    transition: opacity 1.3s ease-in;
+}
+
+/* SET LOGO SIZE ATTRIBUTES */
+#logo-fox-svg {
+	height: auto;
+	max-height: calc(80vh);
+	width: 100%;
+}
+
+/* CONTROLS STYLING */
+
+#volume-control > div > div {
+	background-color: #3f51b5;
+	background-image: linear-gradient(to right, #00E640, yellow, red) !important;
+}
+#volume-control > div > div > div:nth-child(1) {
+	background-color: transparent !important;
+}
+#volume-control > div > div > div:nth-child(2) {
+	background-color: rgb(170,170,170) !important;
+}
+#volume-control #volume-control-slider-tooltip{
+    width: 75px;
+}
