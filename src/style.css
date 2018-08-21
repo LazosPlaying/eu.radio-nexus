@@ -26,7 +26,7 @@ img {
 /* PRELOADER */
 body {
 	opacity: 0;
-    transition: opacity 1.3s ease-in;
+    transition: opacity 1.5s ease-in;
 }
 
 /* SET LOGO SIZE ATTRIBUTES */
@@ -37,7 +37,12 @@ body {
 }
 
 /* CONTROLS STYLING */
-
+#volume-toggle {
+	text-align: center;
+}
+#volume-control > div {
+	margin-top: 11px;
+}
 #volume-control > div > div {
 	background-color: #3f51b5;
 	background-image: linear-gradient(to right, #00E640, yellow, red) !important;
@@ -50,4 +55,5 @@ body {
 }
 #volume-control #volume-control-slider-tooltip{
     width: 75px;
+	margin-top: -2px;
 }
