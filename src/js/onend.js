@@ -1,1 +1,0 @@
-$('img').attr('ondragstart', 'return false;');
