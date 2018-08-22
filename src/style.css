@@ -64,3 +64,10 @@ body {
     width: 75px;
 	margin-top: -2px;
 }
+
+#app #extraActions {
+	text-align: center;
+}
+#app #extraActions .mdl-progress {
+	width: 100%;
+}
