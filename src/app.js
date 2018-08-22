@@ -115,6 +115,7 @@ $( window ).on("load", function() {
 				$('#audiosource')[0].play();
 				$slider.attr('disabled', false);
 				$mutebtn.attr('disabled', false);
+				setMuteState('false');
 				$(this).html('Started playing').css('color', '#777').attr('disabled', true);
 				setTimeout(function(){
 					$('#extraActions').html(null);
