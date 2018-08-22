@@ -6,7 +6,7 @@
 
 /* SET BACKGROUND IMAGE */
 #background-image {
-	background-image: url('https://radio-nexus.eu/src/media/peter-y-chuang-535405-unsplash.jpg');
+	background-image: url('https://radio-nexus.eu/src/media/raj-eiamworakul-523863-unsplash.jpg');
 	background-position: center center;
 	background-size: cover;
 	filter: blur(5px);
@@ -45,7 +45,7 @@ body {
 /* SET LOGO SIZE ATTRIBUTES */
 #logo-fox-svg {
 	height: auto;
-	max-height: calc(80vh);
+	max-height: 60vh;
     min-height: 250px;
 	width: 100%;
 }
@@ -83,4 +83,7 @@ body {
 }
 #app #extraActions .mdl-progress {
 	width: 100%;
+}
+#app > div > div button {
+	background-color: #ffffff3d;
 }

@@ -45,7 +45,7 @@ function setMutedButton($val){
 	if ($val == 'true'){
 		$mutebtn.css({'background-color': '#ec4b4b', 'color': '#fff'});
 	} else if ($val == 'false'){
-		$mutebtn.css({'background-color': '#ffffff3d', 'color': 'unset'});
+		$mutebtn.css({'background-color': '', 'color': ''});
 	} else {
 		console.log('Something went wrong @ setMutedButton()');
 	}
@@ -84,44 +84,50 @@ function setMuteState($val){
 }
 
 $( window ).on("load", function() {
-	// SET PRELOADER OPACITY TO 1 (100%)
-	$('body').css('opacity', '1');
 
-	// COOKIES INITIALISATION
-	{
-		(Cookies.get('volume') == null) ? Cookies.set('volume', '5') : setAudioVolume(Cookies.get('volume'));
-		(Cookies.get('volumeMuted') == null) ? Cookies.set('volumeMuted', 'false') : setMuteState(Cookies.get('volumeMuted'));
-	}
 
-	// START PLAYING AUDIO WHEN AUDIO IS LOADED
-	$('#audiosource').on('canplay canplaythrough', function(event) {
-		event.preventDefault();
+// SET PRELOADER OPACITY TO 1 (100%)
+$('body').css('opacity', '1');
 
-		let $volume = Cookies.get('volume');
-		setAudioVolume($volume);
-		setVolumeSlider($volume);
+// COOKIES INITIALISATION
+{
+	(Cookies.get('volume') == null) ? Cookies.set('volume', '5') : setAudioVolume(Cookies.get('volume'));
+	(Cookies.get('volumeMuted') == null) ? Cookies.set('volumeMuted', 'false') : setMuteState(Cookies.get('volumeMuted'));
+}
 
-		$('#extraActions').find('.mdl-progress').remove();
+// START PLAYING AUDIO WHEN AUDIO IS LOADED
+$('#audiosource').on('canplay canplaythrough', function(event) {
+	event.preventDefault();
 
-		$('#audiosource')[0].play().then(() => {
+	let $volume = Cookies.get('volume');
+	setAudioVolume($volume);
+	setVolumeSlider($volume);
+
+	$('#extraActions').find('.mdl-progress').remove();
+
+	$('#audiosource')[0].play().then(() => {
+		$slider.attr('disabled', false);
+		$mutebtn.attr('disabled', false);
+	  	console.log("Audio has auto started playing!");
+	}).catch((error) => {
+	 	// An error ocurred or the user agent prevented playback.
+	 	console.log("Error: " + error);
+	 	$('#extraActions').append('<br><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect startPlaying">Start playing</button>');
+	 	$('#extraActions').find('.startPlaying').click(function(event) {
+			$('#audiosource')[0].play();
 			$slider.attr('disabled', false);
 			$mutebtn.attr('disabled', false);
-		  	console.log("Audio has auto started playing!");
-		}).catch((error) => {
-		 	// An error ocurred or the user agent prevented playback.
-		 	console.log("Error: " + error);
-		 	$('#extraActions').append('<br><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect startPlaying">Start playing</button>');
-		 	$('#extraActions').find('.startPlaying').click(function(event) {
-				$('#audiosource')[0].play();
-				$slider.attr('disabled', false);
-				$mutebtn.attr('disabled', false);
-				setMuteState('false');
-				$(this).html('Started playing').css('color', '#777').attr('disabled', true);
-				setTimeout(function(){
-					$('#extraActions').html(null);
-				}, 2500);
-		 	});
-		});
+			setMuteState('false');
+			$(this).html('Started playing').css('color', '#777').attr('disabled', true);
+			setTimeout(function(){
+				$('#extraActions').html(null);
+			}, 2500);
+	 	});
 	});
+});
+
+
+
+
 
 });
