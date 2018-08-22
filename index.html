@@ -36,17 +36,20 @@
             <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
 				<img src="./src/media/fox.svg" id="logo-fox-svg" alt="radio-nexus.eu logo">
 				<div class="mdl-grid" id="app">
-					<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-2-phone mdl-cell--order-1-tablet mdl-cell--order-1-desktop" id="volume-toggle">
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect">
+					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--12-col-desktop mdl-cell--order-1" id="extraActions">
+						<div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+					</div>
+					<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-3-phone mdl-cell--order-2-tablet mdl-cell--order-2-desktop" id="volume-toggle">
+						<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" disabled>
 							<i class="material-icons">volume_off</i>
 						</button>
 					</div>
-					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--10-col-desktop mdl-cell--order-1-phone mdl-cell--order-2-tablet mdl-cell--order-2-desktop mdl-cell--stretch" id="volume-control">
-						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="25" tabindex="0" id="volume-control-slider">
+					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--10-col-desktop mdl-cell--order-2-phone mdl-cell--order-3-tablet mdl-cell--order-3-desktop mdl-cell--stretch" id="volume-control">
+						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" tabindex="0" id="volume-control-slider" disabled>
 						<div class="mdl-tooltip mdl-tooltip--top" for="volume-control-slider" id="volume-control-slider-tooltip">Volume ...</div>
 						<audio id="audiosource"><source src="https://radio.aljaxus.eu/radio/8000/radio.mp3?1534871396" type="audio/mpeg"></audio>
 					</div>
-					<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-3-phone mdl-cell--order-3-tablet mdl-cell--order-3-desktop">
+					<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-4-phone mdl-cell--order-4-tablet mdl-cell--order-4-desktop">
 
 					</div>
 				</div>
@@ -54,5 +57,145 @@
         </div>
 <!-- END USER INTERFACE -->
     </body>
-<script src="./src/app.js" charset="utf-8"></script>
+<!-- <script src="./src/app.js" charset="utf-8"></script> -->
+<script type="text/javascript">
+//
+// INITIALISE GLOBAL VARIABLES
+//
+
+let $slider = $('#volume-control-slider');
+let $mutebtn = $('#volume-toggle').children('button');
+
+//
+// INITIALISE TRIGGERS
+//
+
+$slider.on('input', function() {
+	$vol = $(this).val();
+	console.log('Volume changed to: '+$vol);
+	Cookies.set('volume', $vol);
+	if ($vol == 0){
+		setMuteState('true');
+	} else {
+		setMuteState('false');
+	}
+});
+
+$mutebtn.on('click', function() {
+	let $ismuted = Cookies.get('volumeMuted');
+	if ($ismuted == 'true'){														// Audio is MUTED - we need to UNMUTE it
+		Cookies.set('volumeMuted', 'false');
+		setMuteState('false');
+
+	} else if ($ismuted == 'false'){												// Audio is UNMUTED - we need to MUTE it
+		Cookies.set('volumeMuted', 'true');
+		setMuteState('true');
+	} else {
+		console.log('Something went wrong @ $mutebtn.on(click)');
+	}
+});
+
+//
+// INITIALISE FUNCTIONS
+//
+
+function setVolumeSlider($val){
+	document.getElementById("volume-control-slider").MaterialSlider.change($val);
+}
+function setMutedButton($val){
+	if ($val == 'true'){
+		$mutebtn.css({'background-color': '#ec4b4b', 'color': '#fff'});
+	} else if ($val == 'false'){
+		$mutebtn.css({'background-color': 'unset', 'color': 'unset'});
+	} else {
+		console.log('Something went wrong @ setMutedButton()');
+	}
+}
+function setAudioVolume($val){
+	let volume = $val / 100;
+
+	setVolumeSliderTooltip($val);
+	if (volume <= 1){
+		document.getElementById("audiosource").volume = volume;
+	} else {
+		console.log('Volume value is too big @ setAudioVolume() -> '+volume);
+	}
+}
+function setVolumeSliderTooltip($vol){
+	if ($vol == 0){
+		$('#volume-control-slider-tooltip').html('Muted');
+	} else {
+		$('#volume-control-slider-tooltip').html('Volume '+$vol+'%');
+	}
+}
+function setMuteState($val){
+	if ($val == 'true'){
+		Cookies.set('volumeMuted', 'true');
+		setMutedButton('true');
+		setAudioVolume(0);
+
+	} else if ($val == 'false') {
+		Cookies.set('volumeMuted', 'false');
+		setMutedButton('false');
+		setAudioVolume(Cookies.get('volume'));
+
+	} else {
+		console.log('Something went wrong @ setMuteState()');
+	}
+}
+
+$( window ).on("load", function() {
+	// SET PRELOADER OPACITY TO 1 (100%)
+	$('body').css('opacity', '1');
+
+	// COOKIES INITIALISATION
+	{
+		(Cookies.get('volume') == null) ? Cookies.set('volume', '5') : setAudioVolume(Cookies.get('volume'));
+		(Cookies.get('volumeMuted') == null) ? Cookies.set('volumeMuted', 'false') : setMuteState(Cookies.get('volumeMuted'));
+	}
+
+	// START PLAYING AUDIO WHEN AUDIO IS LOADED
+	$('#audiosource').on('canplay canplaythrough', function(event) {
+		event.preventDefault();
+
+		let $volume = Cookies.get('volume');
+		setAudioVolume($volume);
+		setVolumeSlider($volume);
+
+		$('#extraActions').find('.mdl-progress').remove();
+
+		$('#audiosource')[0].play().then(() => {
+			$slider.attr('disabled', false);
+			$mutebtn.attr('disabled', false);
+		  	console.log("Audio has auto started playing!");
+		}).catch((error) => {
+		 	// An error ocurred or the user agent prevented playback.
+		 	console.log("Error: " + error);
+		 	$('#extraActions').append('<br><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect startPlaying">Start playing</button>');
+		 	$('#extraActions').find('.startPlaying').click(function(event) {
+				$('#audiosource')[0].play();
+				$slider.attr('disabled', false);
+				$mutebtn.attr('disabled', false);
+				$(this).html('Started playing').attr('disabled', true);
+				setTimeout(function(){
+					$('#extraActions').html(null);
+				}, 2500);
+		 	});
+		});
+	});
+
+});
+
+
+</script>
+
+<style media="all">
+#app #extraActions {
+	text-align: center;
+}
+#app #extraActions .mdl-progress {
+	width: 100%;
+}
+</style>
+
 </html>
