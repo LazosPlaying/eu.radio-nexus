@@ -4,6 +4,19 @@
     background: transparent;
 }
 
+/* SET BACKGROUND IMAGE */
+#background-image {
+	background-image: url('https://radio-nexus.eu/src/media/shuja-zed-540871-unsplash.jpg');
+	background-position: center center;
+	background-size: cover;
+	filter: blur(5px);
+	-webkit-filter: blur(5px);
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	z-index: -1;
+}
+
 /* DISABLE SELECTING TEXT */
 body{
     -webkit-touch-callout: none; /* iOS Safari */

@@ -45,7 +45,7 @@ function setMutedButton($val){
 	if ($val == 'true'){
 		$mutebtn.css({'background-color': '#ec4b4b', 'color': '#fff'});
 	} else if ($val == 'false'){
-		$mutebtn.css({'background-color': 'unset', 'color': 'unset'});
+		$mutebtn.css({'background-color': '#ffffff3d', 'color': 'unset'});
 	} else {
 		console.log('Something went wrong @ setMutedButton()');
 	}
@@ -115,7 +115,7 @@ $( window ).on("load", function() {
 				$('#audiosource')[0].play();
 				$slider.attr('disabled', false);
 				$mutebtn.attr('disabled', false);
-				$(this).html('Started playing').attr('disabled', true);
+				$(this).html('Started playing').css('color', '#777').attr('disabled', true);
 				setTimeout(function(){
 					$('#extraActions').html(null);
 				}, 2500);
