@@ -1,191 +1,123 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>radio-nexus.eu</title>
-        <meta charset="UTF-8">
-        <meta name="author" content="aljaxus.eu">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="./favicon.ico" />
+<head>
+    <title>radio-nexus.eu</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="aljaxus.eu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico" />
 
-		<!-- Sharing tags -->
-		<meta property="og:title" content="Radio-nexus - 24/7 online web radio">
-		<meta property="og:description" content="Offering our users a well-made, lightweight, responsive user interface and an always fun to listen selection of music">
-		<meta property="og:image" content="https://radio-nexus.eu/src/media/fox-512.png">
-		<meta property="og:image:url" content="https://radio-nexus.eu/src/media/fox-512.png">
-		<meta property="og:image:secure_url " content="https://radio-nexus.eu/src/media/fox-512.png">
-		<meta property="og:image:width" content="512px">
-		<meta property="og:image:height" content="512px">
-		<meta property="og:image:alt" content="radio-nexus's logo - 512px * 512px">
-		<meta property="og:url" content="https://radio-nexus.eu">
-		<meta property="og:type"   content="website" />
-		<meta name="twitter:card" content="summary_large_image">
+	<!-- Sharing tags -->
+	<meta property="og:title" content="Radio-nexus - 24/7 online web radio">
+	<meta property="og:description" content="Offering our users a well-made, lightweight, responsive user interface and an always fun to listen selection of music">
+	<meta property="og:image" content="https://radio-nexus.eu/src/media/fox-512.png">
+	<meta property="og:image:url" content="https://radio-nexus.eu/src/media/fox-512.png">
+	<meta property="og:image:secure_url " content="https://radio-nexus.eu/src/media/fox-512.png">
+	<meta property="og:image:width" content="512px">
+	<meta property="og:image:height" content="512px">
+	<meta property="og:image:alt" content="radio-nexus's logo - 512px * 512px">
+	<meta property="og:url" content="https://radio-nexus.eu">
+	<meta property="og:type"   content="website" />
+	<meta name="twitter:card" content="summary_large_image">
 
-        <script src="https://static.aljaxus.eu/lib/jquery/jquery-3.3.1/jquery.min.js"></script>
-		<!-- GETMDL.IO LIBS -->
-		<link rel="stylesheet" href="https://static.aljaxus.eu/lib/getmdl.io/mdl-1.3.0/material.min.css">
-		<script defer src="https://static.aljaxus.eu/lib/getmdl.io/mdl-1.3.0/material.min.js"></script>
-		<!-- JS-COOKIE -->
-		<script src="https://static.aljaxus.eu/lib/js-cookie/js-cookie-v2.2.0.js" charset="utf-8"></script>
-		<!-- CUSTOM FONTS -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-		<!-- CUSTOM -->
-		<link rel="stylesheet" type="text/css" href="./src/style.css">
-    </head>
-    <style>
-    </style>
-    <script>
-    </script>
-    <body style="overflow-x: hidden;">
+    <script src="https://static.aljaxus.eu/lib/jquery/jquery-3.3.1/jquery.min.js"></script>
+	<!-- GETMDL.IO LIBS -->
+	<link rel="stylesheet" href="https://static.aljaxus.eu/lib/getmdl.io/mdl-1.3.0/material.min.css">
+	<script defer src="https://static.aljaxus.eu/lib/getmdl.io/mdl-1.3.0/material.min.js"></script>
 
-<!-- START BACKGROUND VECTOR -->
+	<link rel="stylesheet" href="https://static.aljaxus.eu/lib/dialog-polyfill/dialog-polyfill-2018-08-23/dialog-polyfill.css">
+	<script src="https://static.aljaxus.eu/lib/dialog-polyfill/dialog-polyfill-2018-08-23/dialog-polyfill.js" charset="utf-8"></script>
+	<!-- JS-COOKIE -->
+	<script src="https://static.aljaxus.eu/lib/js-cookie/js-cookie-v2.2.0.js" charset="utf-8"></script>
+	<!-- CUSTOM FONTS -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+	<!-- CUSTOM -->
+	<link rel="stylesheet" type="text/css" href="./src/style.css">
+</head>
+<body style="overflow-x: hidden;">
 
-		<div id="background-image"></div>
+<!-- START BACKGROUND -->
+<div id="background-image"></div>
+<!-- END BACKGROUND -->
 
-<!-- END BACKGROUND VECTOR -->
 <!-- START USER INTERFACE -->
-        <div class="mdl-grid">
-			<div class="mdl-cell mdl-cell--0-col-phone mdl-cell--1-col-tablet mdl-cell--3-col-desktop"></div>
-            <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop" id="app">
-				<img src="./src/media/fox.svg" id="logo-fox-svg" alt="radio-nexus.eu logo">
-				<div class="mdl-grid">
-					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop mdl-cell--order-1" id="extraActions">
-						<div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-					</div>
-					<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-3-phone mdl-cell--order-2-tablet mdl-cell--order-2-desktop" id="volume-toggle">
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" disabled>
-							<i class="material-icons">volume_off</i>
-						</button>
-					</div>
-					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--10-col-desktop mdl-cell--order-2-phone mdl-cell--order-3-tablet mdl-cell--order-3-desktop mdl-cell--stretch" id="volume-control">
-						<input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" tabindex="0" id="volume-control-slider" disabled>
-						<div class="mdl-tooltip mdl-tooltip--top" for="volume-control-slider" id="volume-control-slider-tooltip">Volume ...</div>
-						<audio id="audiosource"><source src="https://radio.aljaxus.eu/radio/8000/radio.mp3?1534871396" type="audio/mpeg"></audio>
-					</div>
-					<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-4-phone mdl-cell--order-4-tablet mdl-cell--order-4-desktop" id="requests-button">
-						<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" disabled>
-							<i class="material-icons">queue_music</i>
-						</button>
-					</div>
+    <div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--0-col-phone mdl-cell--1-col-tablet mdl-cell--3-col-desktop"></div>
+        <div class="mdl-cell mdl-cell--12-col-phone mdl-cell--6-col-tablet mdl-cell--6-col-desktop" id="app">
+			<img src="./src/media/fox.svg" id="logo-fox-svg" alt="radio-nexus.eu logo">
+			<div class="mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop mdl-cell--order-1" id="extraActions">
+					<div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 				</div>
-				<div class="mdl-grid">
-					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop" id="nowplaying">
-						<div class="mdl-card mdl-shadow--3dp">
-							<div class="mdl-grid">
-								<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--1-col-desktop" id="nowplaying-thumbnail-box">
+				<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-3-phone mdl-cell--order-2-tablet mdl-cell--order-2-desktop" id="volume-toggle">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" disabled>
+						<i class="material-icons">volume_off</i>
+					</button>
+				</div>
+				<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--10-col-desktop mdl-cell--order-2-phone mdl-cell--order-3-tablet mdl-cell--order-3-desktop mdl-cell--stretch" id="volume-control">
+					<input class="mdl-slider mdl-js-slider" type="range" min="0" max="1000" value="0" tabindex="0" id="volume-control-slider" disabled>
+					<div class="mdl-tooltip mdl-tooltip--top" for="volume-control-slider" id="volume-control-slider-tooltip">Volume ...</div>
+					<audio id="audiosource"><source src="https://radio.aljaxus.eu/radio/8000/radio.mp3?1534871396" type="audio/mpeg"></audio>
+				</div>
+				<div class="mdl-cell mdl-cell--2-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop mdl-cell--order-4-phone mdl-cell--order-4-tablet mdl-cell--order-4-desktop" id="requests-button">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect">
+						<i class="material-icons">queue_music</i>
+					</button>
+				</div>
+			</div>
+			<div class="mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop" id="nowplaying">
+					<div class="mdl-card mdl-shadow--3dp">
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--1-col-desktop" id="nowplaying-thumbnail-box">
 
-								</div>
-								<div class="mdl-cell mdl-cell--3-col-phone mdl-cell--6-col-tablet mdl-cell--11-col-desktop">
-	  						    	<h5 class="mdl-card__title-text" id="nowplaying-title">Now playing</h5>
-    						    	<h5 class="mdl-card__title-text" id="nowplaying-artist">Now playing</h5>
-    						    	<h5 class="mdl-card__title-text" id="nowplaying-time">00:00:00 / 00:00:00</h5>
-								</div>
+							</div>
+							<div class="mdl-cell mdl-cell--3-col-phone mdl-cell--6-col-tablet mdl-cell--11-col-desktop">
+  						    	<h5 class="mdl-card__title-text" id="nowplaying-title">Now playing</h5>
+						    	<h5 class="mdl-card__title-text" id="nowplaying-artist">Now playing</h5>
+						    	<h5 class="mdl-card__title-text" id="nowplaying-time">00:00:00 / 00:00:00</h5>
 							</div>
 						</div>
 					</div>
 				</div>
-            </div>
+			</div>
         </div>
+    </div>
+	<!-- START SONG REQUST DIALOG -->
+	<dialog class="mdl-dialog mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--8-col-desktop" id="requests-dialog">
+	    <h4 class="mdl-dialog__title">Request a song</h4>
+	    <div class="mdl-dialog__content">
+	      <p>
+	        Allowing us to collect data will let us get you the information you want faster.
+	      </p>
+	    </div>
+	    <div class="mdl-dialog__actions">
+	      <button type="button" class="mdl-button">Agree</button>
+	      <button type="button" class="mdl-button close">Disagree</button>
+	    </div>
+	  </dialog>
+	<!-- END SONG REQUEST DIALOG -->
 <!-- END USER INTERFACE -->
-    </body>
+</body>
 <script src="./src/app.js" charset="utf-8"></script>
 <style media="all">
-#app #nowplaying > .mdl-card {
-	min-height: unset;
-	width: 100%;
-	background-color: #ffffff3d;
-	background-image: linear-gradient(to right, #ffffff3d, #d8d8d83d, #6b6b6ba3, #d8d8d83d, #ffffff3d);
+
+#requests-dialog {
+	margin: auto;
 }
-#app #nowplaying > .mdl-card > .mdl-grid {
-	margin: 0;
-}
-#app #nowplaying > .mdl-card #nowplaying-thumbnail {
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-image: url('./src/media/thumbnail-placeholder.jpg');
-	min-height: 100%;
-	max-width: 100%;
-	width: 100%;
-}
-#app #nowplaying > .mdl-card #nowplaying-title {
-	font-size: 16px;
-	font-weight: 400;
-	color: #fff5ee;
-}
-#app #nowplaying > .mdl-card #nowplaying-artist {
-	font-size: 13px;
-	font-weight: 300;
-	color: #fff5ee;
-}
-#app #nowplaying > .mdl-card #nowplaying-time {
-	font-size: 13px;
-	font-weight: 300;
-	color: #fff5ee;
-}
+
 </style>
 <script type="text/javascript">
 
-function secondsToTime(time){
 
-	var hours = Math.floor(time / 3600);
-	time = time - hours * 3600;
+let $requestbtn = $('#requests-button').children('button');
+let $requestdialog = $('#requests-dialog');
 
-	var minutes = Math.floor(time / 60);
-	var seconds = time - minutes * 60;
-
-	function str_pad_left(string,pad,length) {
-	    return (new Array(length+1).join(pad)+string).slice(-length);
-	}
-
-	var finalTime = (hours > 0) ? str_pad_left(hours,'0',2)+':'+str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2) : str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
-	return finalTime;	//
-}
-
-function nowPlayingUpdate(){
-	console.log('**********************************');
-	$.get(
-		'https://radio.aljaxus.eu/api/nowplaying/1',
-	    {},
-		function(data, textStatus, xhr){
-	})
-	.done(function(requestdata) {
-		console.log("nowPlaying update - query success");
-		let $data = requestdata.now_playing;
-
-		$img = '<img src="'+$data.song.art+'" alt="Song cover art" id="nowplaying-thumbnail"></img>';
-
-		$('#nowplaying').find('#nowplaying-thumbnail-box').html($img);
-		$('#nowplaying').find('#nowplaying-title').html($data.song.title);
-		$('#nowplaying').find('#nowplaying-artist').html($data.song.artist);
-
-		{
-			let timenow = $data.elapsed;
-			(function move() {
-
-				$('#nowplaying').find('#nowplaying-time').html(secondsToTime(timenow)+' / '+secondsToTime($data.duration));
-
-				timenow++;
-
-				if ( timenow < $data.duration){
-					setTimeout(move, 1000);
-				} else {
-					nowPlayingUpdate();
-				}
-			})();
-		}
-
-	})
-	.fail(function(requestdata) {
-		console.log("nowPlaying update - query error");
-	})
-	.always(function(requestdata) {
-		console.log(requestdata);
-		console.log("nowPlaying update - process complete");
-	});
-}
-
-nowPlayingUpdate();
-
+$requestbtn.on('click', function(event) {
+	event.preventDefault();
+	document.querySelector('dialog#requests-dialog').showModal();
+});
 
 </script>
 </html>

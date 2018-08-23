@@ -51,7 +51,7 @@ function setMutedButton($val){
 	}
 }
 function setAudioVolume($val){
-	let volume = $val / 100;
+	let volume = $val / 1000;
 
 	setVolumeSliderTooltip($val);
 	if (volume <= 1){
@@ -64,7 +64,7 @@ function setVolumeSliderTooltip($vol){
 	if ($vol == 0){
 		$('#volume-control-slider-tooltip').html('Muted');
 	} else {
-		$('#volume-control-slider-tooltip').html('Volume '+$vol+'%');
+		$('#volume-control-slider-tooltip').html('Volume '+($vol/10)+'%');
 	}
 }
 function setMuteState($val){
@@ -83,11 +83,77 @@ function setMuteState($val){
 	}
 }
 
+function secondsToTime(time){
+
+	var hours = Math.floor(time / 3600);
+	time = time - hours * 3600;
+
+	var minutes = Math.floor(time / 60);
+	var seconds = time - minutes * 60;
+
+	function str_pad_left(string,pad,length) {
+	    return (new Array(length+1).join(pad)+string).slice(-length);
+	}
+
+	var finalTime = (hours > 0) ? str_pad_left(hours,'0',2)+':'+str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2) : str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
+	return finalTime;	//
+}
+
+function nowPlayingUpdate(){
+	console.log('**********************************');
+	$.get(
+		'https://radio.aljaxus.eu/api/nowplaying/1',
+	    {},
+		function(data, textStatus, xhr){
+	})
+	.done(function(requestdata) {
+		console.log("nowPlaying update - query success");
+		let $data = requestdata.now_playing;
+
+		$img = '<img src="'+$data.song.art+'" alt="Song cover art" id="nowplaying-thumbnail"></img>';
+
+		$('#nowplaying').find('#nowplaying-thumbnail-box').html($img);
+		$('#nowplaying').find('#nowplaying-title').html($data.song.title);
+		$('#nowplaying').find('#nowplaying-artist').html($data.song.artist);
+
+		{
+			let timenow = $data.elapsed;
+			(function move() {
+
+				$('#nowplaying').find('#nowplaying-time').html(secondsToTime(timenow)+' / '+secondsToTime($data.duration));
+
+				timenow++;
+
+				if ( timenow < $data.duration){
+					setTimeout(move, 1000);
+				} else {
+					setTimeout(nowPlayingUpdate(), 1000);
+				}
+			})();
+		}
+
+	})
+	.fail(function(requestdata) {
+		console.log("nowPlaying update - query error");
+	})
+	.always(function(requestdata) {
+		console.log(requestdata);
+		console.log("nowPlaying update - process complete");
+	});
+}
+
+
+
+
+
 $( window ).on("load", function() {
 
 
 // SET PRELOADER OPACITY TO 1 (100%)
 $('body').css('opacity', '1');
+
+// GET "nowPlaying" DATA AND RENDER THE #nowplaying CONTAINER
+nowPlayingUpdate();
 
 // COOKIES INITIALISATION
 {
@@ -127,9 +193,6 @@ $('#audiosource').on('canplay canplaythrough', function(event) {
 	 	});
 	});
 });
-
-
-
 
 
 });

@@ -87,3 +87,36 @@ body {
 #app > div > div button {
 	background-color: #ffffff3d;
 }
+
+#app #nowplaying > .mdl-card {
+	min-height: unset;
+	width: 100%;
+	background-color: #ffffff3d;
+	background-image: linear-gradient(to right, #ffffff3d, #d8d8d83d, #6b6b6ba3, #d8d8d83d, #ffffff3d);
+}
+#app #nowplaying > .mdl-card > .mdl-grid {
+	margin: 0;
+}
+#app #nowplaying > .mdl-card #nowplaying-thumbnail {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url('./media/thumbnail-placeholder.jpg');
+	min-height: 100%;
+	max-width: 100%;
+	width: 100%;
+}
+#app #nowplaying > .mdl-card #nowplaying-title {
+	font-size: 16px;
+	font-weight: 400;
+	color: #fff5ee;
+}
+#app #nowplaying > .mdl-card #nowplaying-artist {
+	font-size: 13px;
+	font-weight: 300;
+	color: #fff5ee;
+}
+#app #nowplaying > .mdl-card #nowplaying-time {
+	font-size: 13px;
+	font-weight: 300;
+	color: #fff5ee;
+}
