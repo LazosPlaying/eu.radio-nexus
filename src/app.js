@@ -106,11 +106,13 @@ $('#audiosource').on('canplay canplaythrough', function(event) {
 	$('#extraActions').find('.mdl-progress').remove();
 
 	$('#audiosource')[0].play().then(() => {
+		console.log('**********************************');
+		console.log("Audio has auto started playing!");
 		$slider.attr('disabled', false);
 		$mutebtn.attr('disabled', false);
-	  	console.log("Audio has auto started playing!");
 	}).catch((error) => {
 	 	// An error ocurred or the user agent prevented playback.
+		console.log('**********************************');
 	 	console.log("Error: " + error);
 	 	$('#extraActions').append('<br><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect startPlaying">Start playing</button>');
 	 	$('#extraActions').find('.startPlaying').click(function(event) {

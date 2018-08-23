@@ -72,12 +72,13 @@
 					<div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop" id="nowplaying">
 						<div class="mdl-card mdl-shadow--3dp">
 							<div class="mdl-grid">
-								<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--1-col-desktop" id="nowplaying-thumbnail">
+								<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--1-col-desktop" id="nowplaying-thumbnail-box">
 
 								</div>
 								<div class="mdl-cell mdl-cell--3-col-phone mdl-cell--6-col-tablet mdl-cell--11-col-desktop">
 	  						    	<h5 class="mdl-card__title-text" id="nowplaying-title">Now playing</h5>
     						    	<h5 class="mdl-card__title-text" id="nowplaying-artist">Now playing</h5>
+    						    	<h5 class="mdl-card__title-text" id="nowplaying-time">00:00:00 / 00:00:00</h5>
 								</div>
 							</div>
 						</div>
@@ -92,6 +93,8 @@
 #app #nowplaying > .mdl-card {
 	min-height: unset;
 	width: 100%;
+	background-color: #ffffff3d;
+	background-image: linear-gradient(to right, #ffffff3d, #d8d8d83d, #6b6b6ba3, #d8d8d83d, #ffffff3d);
 }
 #app #nowplaying > .mdl-card > .mdl-grid {
 	margin: 0;
@@ -100,34 +103,88 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-image: url('./src/media/thumbnail-placeholder.jpg');
+	min-height: 100%;
+	max-width: 100%;
+	width: 100%;
 }
-#app #nowplaying > .mdl-card .mdl-card__title-text {
-	font-size: unset;
+#app #nowplaying > .mdl-card #nowplaying-title {
+	font-size: 16px;
+	font-weight: 400;
+	color: #fff5ee;
+}
+#app #nowplaying > .mdl-card #nowplaying-artist {
+	font-size: 13px;
 	font-weight: 300;
+	color: #fff5ee;
+}
+#app #nowplaying > .mdl-card #nowplaying-time {
+	font-size: 13px;
+	font-weight: 300;
+	color: #fff5ee;
 }
 </style>
 <script type="text/javascript">
 
-$.get(
-	'https://radio.aljaxus.eu/api/nowplaying/1',
-    {},
-	function(data, textStatus, xhr){
-})
-.done(function(requestdata) {
-	console.log("success");
-	let $data = requestdata.now_playing;
+function secondsToTime(time){
 
-	$('#nowplaying').find('#nowplaying-title').html($data.song.title);
-	$('#nowplaying').find('#nowplaying-artist').html($data.song.artist);
-	$('#nowplaying').find('#nowplaying-thumbnail').css('background-image', 'url('+$data.song.art+')');
-})
-.fail(function(requestdata) {
-	console.log("error");
-})
-.always(function(requestdata) {
-	console.log(requestdata);
-	console.log("complete");
-});
+	var hours = Math.floor(time / 3600);
+	time = time - hours * 3600;
+
+	var minutes = Math.floor(time / 60);
+	var seconds = time - minutes * 60;
+
+	function str_pad_left(string,pad,length) {
+	    return (new Array(length+1).join(pad)+string).slice(-length);
+	}
+
+	var finalTime = (hours > 0) ? str_pad_left(hours,'0',2)+':'+str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2) : str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
+	return finalTime;	//
+}
+
+function nowPlayingUpdate(){
+	console.log('**********************************');
+	$.get(
+		'https://radio.aljaxus.eu/api/nowplaying/1',
+	    {},
+		function(data, textStatus, xhr){
+	})
+	.done(function(requestdata) {
+		console.log("nowPlaying update - query success");
+		let $data = requestdata.now_playing;
+
+		$img = '<img src="'+$data.song.art+'" alt="Song cover art" id="nowplaying-thumbnail"></img>';
+
+		$('#nowplaying').find('#nowplaying-thumbnail-box').html($img);
+		$('#nowplaying').find('#nowplaying-title').html($data.song.title);
+		$('#nowplaying').find('#nowplaying-artist').html($data.song.artist);
+
+		{
+			let timenow = $data.elapsed;
+			(function move() {
+
+				$('#nowplaying').find('#nowplaying-time').html(secondsToTime(timenow)+' / '+secondsToTime($data.duration));
+
+				timenow++;
+
+				if ( timenow < $data.duration){
+					setTimeout(move, 1000);
+				} else {
+					nowPlayingUpdate();
+				}
+			})();
+		}
+
+	})
+	.fail(function(requestdata) {
+		console.log("nowPlaying update - query error");
+	})
+	.always(function(requestdata) {
+		console.log(requestdata);
+		console.log("nowPlaying update - process complete");
+	});
+}
+
+nowPlayingUpdate();
 
 
 </script>
