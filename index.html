@@ -88,13 +88,10 @@
 	<dialog class="mdl-dialog mdl-cell mdl-cell--4-col-phone mdl-cell--6-col-tablet mdl-cell--8-col-desktop" id="requests-dialog">
 	    <h4 class="mdl-dialog__title">Request a song</h4>
 	    <div class="mdl-dialog__content">
-	      <p>
-	        Allowing us to collect data will let us get you the information you want faster.
-	      </p>
+	      <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate" style="width:100%;"></div>
 	    </div>
 	    <div class="mdl-dialog__actions">
-	      <button type="button" class="mdl-button">Agree</button>
-	      <button type="button" class="mdl-button close">Disagree</button>
+	      <button type="button" class="mdl-button close-dialog">Close</button>
 	    </div>
 	  </dialog>
 	<!-- END SONG REQUEST DIALOG -->
@@ -106,6 +103,10 @@
 #requests-dialog {
 	margin: auto;
 }
+#requests-dialog > .mdl-dialog__title {
+	padding: 0px 24px;
+	font-size: 2.0rem;
+}
 
 </style>
 <script type="text/javascript">
@@ -113,10 +114,15 @@
 
 let $requestbtn = $('#requests-button').children('button');
 let $requestdialog = $('#requests-dialog');
+let $requestcontent = $('#requests-dialog').children('.mdl-dialog__content');
 
 $requestbtn.on('click', function(event) {
 	event.preventDefault();
 	document.querySelector('dialog#requests-dialog').showModal();
+});
+$('#requests-dialog').find('button.close-dialog').on('click', function(event) {
+	event.preventDefault();
+	document.querySelector('dialog#requests-dialog').close();
 });
 
 </script>
