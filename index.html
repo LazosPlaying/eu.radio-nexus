@@ -102,12 +102,45 @@
 
 #requests-dialog {
 	margin: auto;
+    top: 7px;
 }
 #requests-dialog > .mdl-dialog__title {
 	padding: 0px 24px;
 	font-size: 2.0rem;
 }
-
+#requests-dialog > .mdl-dialog__content {
+    margin: 0;
+    padding: 0;
+}
+#requests-dialog > .mdl-dialog__content > .mdl-grid {
+    padding: 0;
+}
+#requests-dialog .request-thumbnail-box {
+    overflow: hidden;
+    width: 70px;
+}
+#requests-dialog .request-thumbnail {
+    background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url('./src/media/thumbnail-placeholder.jpg');
+	height: 70px;
+	width: auto;
+}
+#requests-dialog .request-title {
+	font-size: 16px;
+	font-weight: 400;
+}
+#requests-dialog .request-artist {
+	font-size: 13px;
+	font-weight: 300;
+}
+#requests-dialog .request-time {
+	font-size: 13px;
+	font-weight: 300;
+}
+#requests-dialog .request-button-btn {
+    /* background-color: #3f51b563; */
+}
 </style>
 <script type="text/javascript">
 
@@ -116,8 +149,89 @@ let $requestbtn = $('#requests-button').children('button');
 let $requestdialog = $('#requests-dialog');
 let $requestcontent = $('#requests-dialog').children('.mdl-dialog__content');
 
+
+function requestSong(url){
+    $.get(url, function(json, textStatus) {
+            /*optional stuff to do after success */
+    }).done(function(requestdata) {
+		console.log(requestdata);
+        console.log('Get requests data - success');
+        let container = $('#requests-dialog').find('.mdl-dialog__content');
+
+        container.html(null);
+        requestdata.rows.forEach(function($row){
+            console.log($row);
+            let content = '';
+
+            content += '<div class="mdl-grid">';
+                content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--1-col-desktop request-thumbnail-box">';
+                    content += '<img src="'+$row.song.art+'" alt="Song cover art" class="request-thumbnail"></img>';
+                content += '</div>';
+                content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--5-col-tablet mdl-cell--10-col-desktop">';
+                    content += '<h5 class="mdl-card__title-text request-title">'+$row.song.title+'</h5>';
+                    content += '<h5 class="mdl-card__title-text request-artist">'+$row.song.artist+'</h5>';
+                content += '</div>';
+                content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop request-button">';
+                    content += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored request-button-btn">Request</button>';
+                content += '</div>';
+            content += '</div>';
+
+            container.append(content);
+        });
+
+
+
+    }).fail(function(requestdata) {
+        console.log('Get requests data - fail');
+
+    }).always(function(requestdata) {
+        console.log('Get requests data - process finished');
+    });
+}
+
 $requestbtn.on('click', function(event) {
-	event.preventDefault();
+    event.preventDefault();
+
+    console.log('**********************************');
+    console.log('Get requests data - process started');
+    $.get(
+        'https://radio.aljaxus.eu/api/station/1/requests',
+        function(data, textStatus, xhr) {
+    }).done(function(requestdata) {
+		console.log(requestdata);
+        console.log('Get requests data - success');
+        let container = $('#requests-dialog').find('.mdl-dialog__content');
+
+        container.html(null);
+        requestdata.rows.forEach(function($row){
+            console.log($row);
+            let content = '';
+
+            content += '<div class="mdl-grid">';
+                content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--2-col-tablet mdl-cell--1-col-desktop request-thumbnail-box">';
+                    content += '<img src="'+$row.song.art+'" alt="Song cover art" class="request-thumbnail"></img>';
+                content += '</div>';
+                content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--5-col-tablet mdl-cell--10-col-desktop">';
+                    content += '<h5 class="mdl-card__title-text request-title">'+$row.song.title+'</h5>';
+                    content += '<h5 class="mdl-card__title-text request-artist">'+$row.song.artist+'</h5>';
+                content += '</div>';
+                content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop request-button">';
+                    content += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect request-button-btn">Request</button>';
+                content += '</div>';
+            content += '</div>';
+
+            container.append(content);
+        });
+
+
+
+    }).fail(function(requestdata) {
+        console.log('Get requests data - fail');
+
+    }).always(function(requestdata) {
+        console.log('Get requests data - process finished');
+    });
+
 	document.querySelector('dialog#requests-dialog').showModal();
 });
 $('#requests-dialog').find('button.close-dialog').on('click', function(event) {
