@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
 	<!-- CUSTOM -->
-	<link rel="stylesheet" type="text/css" href="./src/style.css">
+	<link rel="stylesheet" type="text/css" href="./src/style.css?2018-09-13">
 </head>
 <body style="overflow-x: hidden;">
 
@@ -74,8 +74,9 @@
 
 							</div>
 							<div class="mdl-cell mdl-cell--3-col-phone mdl-cell--6-col-tablet mdl-cell--11-col-desktop">
-  						    	<h5 class="mdl-card__title-text" id="nowplaying-title">Now playing</h5>
-						    	<h5 class="mdl-card__title-text" id="nowplaying-artist">Now playing</h5>
+  						    	<h5 class="mdl-card__title-text" id="nowplaying-title">Title ...</h5>
+						    	<h5 class="mdl-card__title-text" id="nowplaying-artist">Artist ...</h5>
+						    	<h5 class="mdl-card__title-text" id="nowplaying-editby">Edit by ...</h5>
 						    	<h5 class="mdl-card__title-text" id="nowplaying-time">00:00:00 / 00:00:00</h5>
 							</div>
 						</div>
@@ -97,7 +98,7 @@
 	<!-- END SONG REQUEST DIALOG -->
 <!-- END USER INTERFACE -->
 </body>
-<script src="./src/app.js" charset="utf-8"></script>
+<script src="./src/app.js?2018-09-13" charset="utf-8"></script>
 <style media="all">
 
 #requests-dialog {
@@ -131,6 +132,10 @@
 	font-weight: 400;
 }
 #requests-dialog .request-artist {
+	font-size: 13px;
+	font-weight: 300;
+}
+#requests-dialog .request-editby {
 	font-size: 13px;
 	font-weight: 300;
 }
@@ -168,8 +173,8 @@ function requestSong(url){
                     content += '<img src="'+$row.song.art+'" alt="Song cover art" class="request-thumbnail"></img>';
                 content += '</div>';
                 content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--5-col-tablet mdl-cell--10-col-desktop">';
-                    content += '<h5 class="mdl-card__title-text request-title">'+$row.song.title+'</h5>';
-                    content += '<h5 class="mdl-card__title-text request-artist">'+$row.song.artist+'</h5>';
+                    content += '<h5 class="mdl-card__title-text request-title">Title: '+$row.song.title+'</h5>';
+                    content += '<h5 class="mdl-card__title-text request-artist">Artist: '+$row.song.artist+'</h5>';
                 content += '</div>';
                 content += '<div class="mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col-desktop request-button">';
                     content += '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored request-button-btn">Request</button>';

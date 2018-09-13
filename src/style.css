@@ -115,6 +115,11 @@ body {
 	font-weight: 300;
 	color: #fff5ee;
 }
+#app #nowplaying > .mdl-card #nowplaying-editby {
+	font-size: 13px;
+	font-weight: 300;
+	color: #fff5ee;
+}
 #app #nowplaying > .mdl-card #nowplaying-time {
 	font-size: 13px;
 	font-weight: 300;
