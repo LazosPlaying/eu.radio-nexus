@@ -11,7 +11,6 @@ let $mutebtn = $('#volume-toggle').children('button');
 
 $slider.on('input', function() {
 	$vol = $(this).val();
-	console.log('Volume changed to: '+$vol);
 	Cookies.set('volume', $vol);
 	if ($vol == 0){
 		setMuteState('true');
