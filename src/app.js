@@ -113,9 +113,9 @@ function nowPlayingUpdate(){
 		$img = '<img src="'+$data.song.art+'" alt="Song cover art" id="nowplaying-thumbnail"></img>';
 
 		$('#nowplaying').find('#nowplaying-thumbnail-box').html($img);
-		$('#nowplaying').find('#nowplaying-title').html($data.song.title);
-		$('#nowplaying').find('#nowplaying-artist').html($data.song.artist);
-		$('#nowplaying').find('#nowplaying-editby').html($data.song.custom_fields.edit_by);
+		$('#nowplaying').find('#nowplaying-title').html("Title: "+$data.song.title);
+		$('#nowplaying').find('#nowplaying-artist').html("Artist: "+$data.song.artist);
+		$('#nowplaying').find('#nowplaying-editby').html($data.song.custom_fields.edit_by!=""?"Edit by: "+$data.song.custom_fields.edit_by : '');
 
 		{
 			let timenow = $data.elapsed;
